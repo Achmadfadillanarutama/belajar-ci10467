@@ -25,6 +25,19 @@ class ProdukController extends BaseController
 
     public function create()
 {
+    // Rules for validation
+    $validationRules = [
+        'nama' => 'required|min_length[3]',
+        'harga' => 'required|numeric',
+        'jumlah' => 'required|numeric',
+    ];
+
+    // Set validation rules
+    if (!$this->validate($validationRules)) {
+        // If validation fails, return back to the product page with errors
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+
     $dataFoto = $this->request->getFile('foto');
 
     $dataForm = [
@@ -44,6 +57,7 @@ class ProdukController extends BaseController
 
     return redirect('produk')->with('success', 'Data Berhasil Ditambah');
 }
+
 
 public function edit($id)
 {

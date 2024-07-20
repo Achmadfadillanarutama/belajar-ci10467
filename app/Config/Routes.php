@@ -28,9 +28,15 @@ $routes->group('keranjang', ['filter' => 'auth'], function ($routes) {
     $routes->get('clear', 'TransaksiController::cart_clear');
 });
 
+$routes->group('transaksi', ['filter' => 'auth'], function ($routes) {
+    $routes->get('', 'TransController::index');
+    $routes->post('updateStatus', 'TransController::updateStatus');
+    $routes->get('downloadPdf', 'TransController::downloadPdf');  // Tambahkan rute untuk unduh PDF
+});
+
 $routes->get('checkout', 'TransaksiController::checkout', ['filter' => 'auth']);
-$routes->get('getcity', 'TransaksiController::getcity', ['filter' => 'auth']);
-$routes->get('getcost', 'TransaksiController::getcost', ['filter' => 'auth']);
+$routes->get('getcity', 'TransaksiController::getCity', ['filter' => 'auth']);
+$routes->get('getcost', 'TransaksiController::getCost', ['filter' => 'auth']);
 $routes->post('buy', 'TransaksiController::buy', ['filter' => 'auth']);
 
 $routes->get('faq', 'Home::faq', ['filter' => 'auth']);
